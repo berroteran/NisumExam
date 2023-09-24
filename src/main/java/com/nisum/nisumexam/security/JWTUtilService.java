@@ -37,9 +37,9 @@ public class JWTUtilService {
   
   public JWTUtilService(@Value("${security.jwt.token.secret-key}") String secretKey,
                         @Value("${security.jwt.token.expiration}") long expirationTime) {
-    LOGGER.info("Secret recuperado: " + secretKey);
+    LOGGER.info("Secret recuperado: {0}", secretKey);
     this.JWT_SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    LOGGER.info("secret coded: " + this.JWT_SECRET_KEY);
+    LOGGER.info("Secret coded: {0}" , this.JWT_SECRET_KEY);
     this.JWT_ExpirationTime = expirationTime;
   }
   
