@@ -1,0 +1,49 @@
+server:
+  servlet:
+    context-path: '/api/${API_VERSION:v1}'
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  sql:
+    init.mode:always
+  jpa:
+    show-sql: true
+    ddl-auto: create-drop
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  data:
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
+        settings.trace: false
+        settings.web-allow-others: false
+security:
+  jwt:
+    token:
+      secret-key: TheZeroPhantonZerg2Go2SuperMall2SellBitCoins123
+      expiration: 10_800_000  # 1000 * 60 * 60 * 8 ; // 8 Horas
+logging:
+  level:
+    org.springframework.security: DEBUG
+springdoc:
+  paths-to-match: /api/v1/user,/api/v1/Auth
+  packages-to-scan: com.nisum.exam.nisum23.controller
+  packagesToScan: com.nisum.exam.nisum23.controller
+  api-docs:
+    swagger-ui:
+      path: /swagger-ui.html # Specify the path of the Swagger UI
+      enabled: true # Enable or disable Swagger UI
+      display-request-duration: true
+      groups-order: DESC
+
+nisum:
+  configuration:
+    version: 1
+    user:
+      password: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^*&+=])(?=\S+$).{8,}$
+      email: (^[0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])cl$
+      emailLogin: (^[0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])cl$
