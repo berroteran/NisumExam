@@ -46,8 +46,7 @@ public class SecurityConfig {
   }
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
-    MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-    // Entry points
+
     http.authorizeRequests(
         authorize -> authorize
             .requestMatchers("/").permitAll()
@@ -58,7 +57,6 @@ public class SecurityConfig {
                              "/v3/api-docs/**").permitAll()
             
             .requestMatchers("/h2-console/**").permitAll()
-            //.requestMatchers(antMatcher.pattern("/spring-mvc-controller/**")).hasRole("USER")
             
             .requestMatchers("/user/signup").permitAll()
             
