@@ -51,7 +51,7 @@ public class EntityAuditory {
   }
   
   public LocalDateTime getCreationDate() {
-    return creationDate == null ?  DateUtils.getCurrenLocaltDateTime() : creationDate;
+    return creationDate == null ? DateUtils.getCurrenLocaltDateTime() : creationDate;
   }
   
   public String getCreateby() {
@@ -69,8 +69,8 @@ public class EntityAuditory {
   @PrePersist
   protected void onCreate() {
     creationDate = DateUtils.getCurrenLocaltDateTime();
-    updateDate = DateUtils.getCurrenLocaltDateTime();
-    createby = (getCurrentAuditor() == null ? "anonymous" : getCurrentAuditor().getEmail());
+    updateDate   = DateUtils.getCurrenLocaltDateTime();
+    createby     = (getCurrentAuditor() == null ? "anonymous" : getCurrentAuditor().getEmail());
   }
   
   public User getCurrentAuditor() {

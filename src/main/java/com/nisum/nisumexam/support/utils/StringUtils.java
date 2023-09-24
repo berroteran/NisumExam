@@ -28,9 +28,6 @@ public class StringUtils {
     if (null == variable) {
       return true;
     }
-    if (variable.isEmpty()) {
-      return true;
-    }
-    return false;
+    return variable.isEmpty();
   }
 }

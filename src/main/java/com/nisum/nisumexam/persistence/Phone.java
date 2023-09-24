@@ -36,9 +36,9 @@ public class Phone implements Serializable {
   private String countryCode;
   
   public Phone(String number, String countryCode, String cityCode) {
-    this.number = number;
+    this.number      = number;
     this.countryCode = countryCode;
-    this.cityCode = cityCode;
+    this.cityCode    = cityCode;
   }
   
   public Phone() {

@@ -1,7 +1,7 @@
 package com.nisum.nisumexam.controller;
 
-import com.nisum.nisumexam.dto.Login;
-import com.nisum.nisumexam.dto.UserSesion;
+import com.nisum.nisumexam.dto.LoginDTO;
+import com.nisum.nisumexam.dto.UserSesionDTO;
 import com.nisum.nisumexam.service.SessionService;
 import com.nisum.nisumexam.support.utils.StringUtils;
 import jakarta.validation.Valid;
@@ -22,8 +22,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping("/Auth")
 public class SesionController {
-  final private static Logger LOG = LoggerFactory.getLogger(SesionController.class);
-  private final SessionService sesionService;
+  
+  final private static Logger         LOG = LoggerFactory.getLogger(SesionController.class);
+  private final        SessionService sesionService;
   
   public SesionController(SessionService sesionService) {
     this.sesionService = sesionService;
@@ -37,13 +38,13 @@ public class SesionController {
    */
   @PostMapping(path = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<?> signin(@RequestBody @Valid Login login) {
+  public ResponseEntity<?> signin(@RequestBody @Valid LoginDTO login) {
     LOG.info("JSON: {}", StringUtils.entityToString(login));
-    UserSesion user   = this.sesionService.signin(login);
-    var        header = new HttpHeaders();
-    var location = ServletUriComponentsBuilder.fromCurrentRequest().path("/v1/user/".concat( user.getId().toString() ) ).buildAndExpand(1).toUri();
+    UserSesionDTO user     = this.sesionService.signin(login);
+    var           header   = new HttpHeaders();
+    var           location = ServletUriComponentsBuilder.fromCurrentRequest().path("/v1/user/".concat(user.getId().toString())).buildAndExpand(1).toUri();
     header.setLocation(location);
-    header.set( HttpHeaders.AUTHORIZATION, user.getToken());
+    header.set(HttpHeaders.AUTHORIZATION, user.getToken());
     return new ResponseEntity<>(user, header, HttpStatus.OK);
   }
   

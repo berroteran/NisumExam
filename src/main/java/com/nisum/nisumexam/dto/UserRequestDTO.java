@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * Clase DTO para la creacion de usuarios
  */
-public class UserRequest {
+public class UserRequestDTO {
   
   @NotEmpty
   private String name;
@@ -24,16 +24,6 @@ public class UserRequest {
   
   public User toEntity() {
     User user = new User();
-    user.setName(this.getName());
-    user.setEmail(this.getEmail());
-    user.setPassword(this.getPassword());
-    user.setPhones(this.getPhones());
-    return user;
-  }
-  
-  public User toEntity(UUID id) {
-    User user = new User();
-    user.setId(id);
     user.setName(this.getName());
     user.setEmail(this.getEmail());
     user.setPassword(this.getPassword());
@@ -71,5 +61,15 @@ public class UserRequest {
   
   public void setPassword(String password) {
     this.password = password;
+  }
+  
+  public User toEntity(UUID id) {
+    User user = new User();
+    user.setId(id);
+    user.setName(this.getName());
+    user.setEmail(this.getEmail());
+    user.setPassword(this.getPassword());
+    user.setPhones(this.getPhones());
+    return user;
   }
 }

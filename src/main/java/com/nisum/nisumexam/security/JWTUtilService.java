@@ -35,11 +35,11 @@ public class JWTUtilService {
   @Value("${security.jwt.token.expiration}")
   private long JWT_ExpirationTime;
   
-  public JWTUtilService(@Value("${security.jwt.token.secret-key}") String secretKey,
-                        @Value("${security.jwt.token.expiration}") long expirationTime) {
+  public JWTUtilService(
+      @Value("${security.jwt.token.secret-key}") String secretKey, @Value("${security.jwt.token.expiration}") long expirationTime) {
     LOGGER.info("Secret recuperado: {0}", secretKey);
     this.JWT_SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    LOGGER.info("Secret coded: {0}" , this.JWT_SECRET_KEY);
+    LOGGER.info("Secret coded: {0}", this.JWT_SECRET_KEY);
     this.JWT_ExpirationTime = expirationTime;
   }
   
@@ -48,7 +48,7 @@ public class JWTUtilService {
       return "";
     }
     Map<String, Object> claims = new HashMap<>();
-    var rol = userDetails.getAuthorities().stream().collect(Collectors.toList()).get(0);
+    var                 rol    = userDetails.getAuthorities().stream().collect(Collectors.toList()).get(0);
     claims.put("rol", rol);
     return createToken(claims, userDetails.getUsername());
   }
@@ -59,7 +59,7 @@ public class JWTUtilService {
       return "";
     }
     Date dateTimeNOW = new Date();
-    Date expiresAt = new Date(dateTimeNOW.getTime() + JWT_ExpirationTime);
+    Date expiresAt   = new Date(dateTimeNOW.getTime() + JWT_ExpirationTime);
     return Jwts.builder().setClaims(claims).setSubject(email).setIssuedAt(dateTimeNOW).setExpiration(expiresAt).signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY).compact();
   }
   
@@ -107,7 +107,7 @@ public class JWTUtilService {
     
     LOGGER.info("eMAIL firmado: {} ", getEmailSigned(jwtToken));
     return Optional.of(withUsername(getEmailSigned(jwtToken)).authorities(new SimpleGrantedAuthority("STANDARD_USER")).password("") //token does not have password but field may not be empty
-        .accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(false).build());
+                           .accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(false).build());
   }
   
   /**

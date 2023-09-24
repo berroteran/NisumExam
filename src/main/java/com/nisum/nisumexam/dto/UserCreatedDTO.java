@@ -5,17 +5,17 @@ import com.nisum.nisumexam.persistence.User;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class UserCreated {
+public class UserCreatedDTO {
   
-  private UUID id;
+  private UUID          id;
   private LocalDateTime created;
   private LocalDateTime modified;
   private LocalDateTime lastLogin;
-  private String token;
-  private boolean active;
+  private String        token;
+  private boolean       active;
   
-  public static UserCreated parse(User newUser) {
-    UserCreated userResponse = new UserCreated();
+  public static UserCreatedDTO parse(User newUser) {
+    UserCreatedDTO userResponse = new UserCreatedDTO();
     userResponse.setId(newUser.getId());
     userResponse.setCreated(newUser.getCreationDate());
     userResponse.setModified(newUser.getUpdateDate());

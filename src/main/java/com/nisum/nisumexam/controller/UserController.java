@@ -1,9 +1,9 @@
 package com.nisum.nisumexam.controller;
 
 
-import com.nisum.nisumexam.dto.UserCreated;
-import com.nisum.nisumexam.dto.UserRequest;
-import com.nisum.nisumexam.dto.UserResponse;
+import com.nisum.nisumexam.dto.UserCreatedDTO;
+import com.nisum.nisumexam.dto.UserRequestDTO;
+import com.nisum.nisumexam.dto.UserResponseDTO;
 import com.nisum.nisumexam.service.UserService;
 import com.nisum.nisumexam.support.exceptions.NotFoundException;
 import jakarta.validation.Valid;
@@ -41,47 +41,47 @@ public class UserController {
   
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public List<UserResponse> findAllUser() {
+  public List<UserResponseDTO> findAllUser() {
     return userService.showAllUser();
   }
   
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public UserResponse findUserById(@NotNull @PathVariable UUID id) {
+  public UserResponseDTO findUserById(@NotNull @PathVariable UUID id) {
     LOG.info("call get user by ID.  uuid:  {}", id);
-    UserResponse userResponse = userService.findDTOById(id).orElseThrow(() -> new NotFoundException(UserResponse.class, id));
+    UserResponseDTO userResponse = userService.findDTOById(id).orElseThrow(() -> new NotFoundException(UserResponseDTO.class, id));
     return userResponse;
   }
   
   @GetMapping(value = "email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public UserResponse findByEmail(@NotNull @PathVariable String email) {
-    return userService.findByEmail(email) .orElseThrow(() -> new NotFoundException(UserResponse.class, "Email", email));
+  public UserResponseDTO findByEmail(@NotNull @PathVariable String email) {
+    return userService.findByEmail(email).orElseThrow(() -> new NotFoundException(UserResponseDTO.class, "Email", email));
   }
   
   @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<UserCreated> createUser(@Valid @NotNull @RequestBody UserRequest newuser) {
+  public ResponseEntity<UserCreatedDTO> createUser(@Valid @NotNull @RequestBody UserRequestDTO newuser) {
     LOG.info("Call create user json {}", newuser);
-    UserCreated newEntity = userService.createUser(newuser);
+    UserCreatedDTO newEntity = userService.createUser(newuser);
     return new ResponseEntity<>(newEntity, HttpStatus.CREATED);
   }
   
   @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity udpateUser(@Valid @NotNull @PathVariable UUID id, @RequestBody UserRequest userdata) {
+  public ResponseEntity udpateUser(@Valid @NotNull @PathVariable UUID id, @RequestBody UserRequestDTO userdata) {
     // 200 update
     // 201, create nuevo
     // 204 no content, no find
     // 209 conflict
-    userService.updateUser( userdata, id );
+    userService.updateUser(userdata, id);
     return ResponseEntity.ok("User updated");
   }
   
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public ResponseEntity delete(@Valid @NotNull @PathVariable UUID id) {
-    userService.deleteUser( id);
+    userService.deleteUser(id);
     return ResponseEntity.ok("User deleted");
   }
   

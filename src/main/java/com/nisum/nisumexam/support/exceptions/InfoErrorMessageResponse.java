@@ -17,8 +17,8 @@ public record InfoErrorMessageResponse(Exception exception) {
   
   private String getErrorMessage(Exception e) {
     if (e instanceof SQLException) {
-      String msg = e.getMessage();
-      int errorCode = ((SQLException) e).getErrorCode();
+      String msg       = e.getMessage();
+      int    errorCode = ((SQLException) e).getErrorCode();
       if (errorCode == 23505 && msg.indexOf("Unique index or primary key violation") >= 0) {
         return "This email address already belongs to a registered User";
       } else {

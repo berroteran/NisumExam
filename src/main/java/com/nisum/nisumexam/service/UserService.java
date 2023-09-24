@@ -1,8 +1,8 @@
 package com.nisum.nisumexam.service;
 
-import com.nisum.nisumexam.dto.UserCreated;
-import com.nisum.nisumexam.dto.UserRequest;
-import com.nisum.nisumexam.dto.UserResponse;
+import com.nisum.nisumexam.dto.UserCreatedDTO;
+import com.nisum.nisumexam.dto.UserRequestDTO;
+import com.nisum.nisumexam.dto.UserResponseDTO;
 import com.nisum.nisumexam.persistence.User;
 import com.nisum.nisumexam.repository.RolRepository;
 import com.nisum.nisumexam.repository.UserRepository;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
   
-  private static final Logger         LOGGER = Logger.getLogger(UserService.class.getName());
-  final private UserRepository  userRepository;
-  private final RolRepository   roleRepository;
-  private final PasswordEncoder passwordEncoder;
+  private static final Logger          LOGGER = Logger.getLogger(UserService.class.getName());
+  final private        UserRepository  userRepository;
+  private final        RolRepository   roleRepository;
+  private final        PasswordEncoder passwordEncoder;
   
   @Value("${nisum.configuration.user.email}")
   private String EMAIL_REGEX;
@@ -33,48 +33,38 @@ public class UserService {
   private String PASSWORD_REGEX;
   
   public UserService(UserRepository userRepository, RolRepository roleRepository, PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.roleRepository = roleRepository;
+    this.userRepository  = userRepository;
+    this.roleRepository  = roleRepository;
     this.passwordEncoder = passwordEncoder;
   }
   
-  public Optional<UserResponse> findDTOById(UUID id) {
-    User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
-    UserResponse dto = new UserResponse(user);
+  public Optional<UserResponseDTO> findDTOById(UUID id) {
+    User            user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
+    UserResponseDTO dto  = new UserResponseDTO(user);
     return Optional.of(dto);
   }
   
-  public UserCreated createUser(UserRequest newuser) {
+  public UserCreatedDTO createUser(UserRequestDTO newuser) {
     validUser(newuser);
     if (newuser.getPhones().isEmpty()) {
       throw new BusinessException("A new user required at least one phone.");
     }
     newuser.setPassword(encodePass(newuser.getPassword()));
-    return UserCreated.parse(userRepository.save(newuser.toEntity()));
+    return UserCreatedDTO.parse(userRepository.save(newuser.toEntity()));
   }
   
-  public void updateUser(UserRequest userdata, @Valid @NotNull UUID id) {
-    validUser(userdata);
-    User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
-    user.setName(userdata.getName());
-    user.setEmail(userdata.getEmail());
-    user.setPhones( userdata.getPhones());
-    userdata.setPassword(encodePass(userdata.getPassword()));
-    userRepository.save( user );
-  }
-  
-  private void validUser(UserRequest user) {
-      if (user.getName() == null || user.getName().equals("")) {
-          throw new BusinessException("The name is invalid");
-      }
-      
-      if (!isValidPassword(user.getPassword())) {
-          throw new BusinessException("The password is not valid requirement");
-      }
-      
-      if (!isValidEmail(user.getEmail())) {
-          throw new BusinessException("The email is not invalid format");
-      }
+  private void validUser(UserRequestDTO user) {
+    if (user.getName() == null || user.getName().equals("")) {
+      throw new BusinessException("The name is invalid");
+    }
+    
+    if (!isValidPassword(user.getPassword())) {
+      throw new BusinessException("The password is not valid requirement");
+    }
+    
+    if (!isValidEmail(user.getEmail())) {
+      throw new BusinessException("The email is not invalid format");
+    }
     
     //if (existEmail(user.getEmail()))  throw new Exception(("The email already exist");
   }
@@ -93,19 +83,29 @@ public class UserService {
     return email.matches(EMAIL_REGEX);
   }
   
-  public List<UserResponse> showAllUser() {
-    List<User> users = userRepository.findAll();
-    List<UserResponse> listUser = UserResponse.parseList(users);
+  public void updateUser(UserRequestDTO userdata, @Valid @NotNull UUID id) {
+    validUser(userdata);
+    User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
+    user.setName(userdata.getName());
+    user.setEmail(userdata.getEmail());
+    user.setPhones(userdata.getPhones());
+    userdata.setPassword(encodePass(userdata.getPassword()));
+    userRepository.save(user);
+  }
+  
+  public List<UserResponseDTO> showAllUser() {
+    List<User>            users    = userRepository.findAll();
+    List<UserResponseDTO> listUser = UserResponseDTO.parseList(users);
     return listUser;
   }
   
-  public Optional<UserResponse> findByEmail(String email) {
-    Optional<User> userFinded         = userRepository.findByEmail(email);
-    Optional<UserResponse> userReturn = Optional.empty();
-    if (userFinded.isPresent()){
-      userReturn =  Optional.of( UserResponse.parse( userFinded.get() ) );
-    }else{
-          new UsernameNotFoundException(String.format("User with email %s does not exist", email));
+  public Optional<UserResponseDTO> findByEmail(String email) {
+    Optional<User>            userFinded = userRepository.findByEmail(email);
+    Optional<UserResponseDTO> userReturn = Optional.empty();
+    if (userFinded.isPresent()) {
+      userReturn = Optional.of(UserResponseDTO.parse(userFinded.get()));
+    } else {
+      new UsernameNotFoundException(String.format("User with email %s does not exist", email));
     }
     return userReturn;
   }
@@ -114,7 +114,7 @@ public class UserService {
     userRepository.save(user);
   }
   
-  public void deleteUser( @Valid @NotNull UUID id) {
+  public void deleteUser(@Valid @NotNull UUID id) {
     User tmpuser = userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
     userRepository.delete(tmpuser);
   }

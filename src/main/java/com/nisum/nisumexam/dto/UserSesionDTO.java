@@ -3,17 +3,17 @@ package com.nisum.nisumexam.dto;
 import com.nisum.nisumexam.persistence.User;
 import java.util.UUID;
 
-public class UserSesion {
+public class UserSesionDTO {
   
-  private UUID id;
-  private String name;
-  private String email;
-  private String token;
+  private UUID    id;
+  private String  name;
+  private String  email;
+  private String  token;
   private boolean active;
   
   
-  public static UserSesion parse(User user) {
-    UserSesion userSesion = new UserSesion();
+  public static UserSesionDTO parse(User user) {
+    UserSesionDTO userSesion = new UserSesionDTO();
     userSesion.setId(user.getId());
     userSesion.setName(user.getName());
     userSesion.setEmail(user.getEmail());

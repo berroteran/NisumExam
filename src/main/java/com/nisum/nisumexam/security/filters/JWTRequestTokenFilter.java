@@ -26,16 +26,16 @@ public class JWTRequestTokenFilter extends OncePerRequestFilter {
   
   public JWTRequestTokenFilter(UserDetailSecurityService userDetailsService, JWTUtilService jwtUtilService) {
     this.userDetailsService = userDetailsService;
-    this.jwtUtilService = jwtUtilService;
+    this.jwtUtilService     = jwtUtilService;
   }
   
   
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     
-    String authorizationHeader = request.getHeader("Authorization");
-    Optional<String> jwt = null;
-    boolean logout = getLogOut(request);
+    String           authorizationHeader = request.getHeader("Authorization");
+    Optional<String> jwt                 = null;
+    boolean          logout              = getLogOut(request);
     
     jwt = getBearerToken(authorizationHeader);
     if (jwt.isPresent()) {

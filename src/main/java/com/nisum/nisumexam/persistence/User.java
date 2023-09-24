@@ -33,7 +33,7 @@ public class User extends EntityAuditory implements Serializable {
   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(name = "id", updatable = false, nullable = false)
   @ColumnDefault("random_uuid()")
-  private UUID id;
+  private UUID   id;
   private String name;
   
   @Column(unique = true, nullable = false)
@@ -41,9 +41,8 @@ public class User extends EntityAuditory implements Serializable {
   private String password;
   
   
-  private LocalDateTime lastLoginDate = LocalDateTime.now();
+  private LocalDateTime lastLoginDate  = LocalDateTime.now();
   private LocalDateTime lastPassChange = LocalDateTime.now();
-  ;
   private Boolean active = true;
   
   @Column(length = 400)
@@ -54,12 +53,10 @@ public class User extends EntityAuditory implements Serializable {
   private List<Phone> phones;
   
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "user_role",
-      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private List<Role> roles;
-  private Boolean locked = false;
-  private Boolean expired = false;
+  private Boolean    locked  = false;
+  private Boolean    expired = false;
   
   
   public UUID getId() {
@@ -135,16 +132,16 @@ public class User extends EntityAuditory implements Serializable {
     }
     if (this.roles.size() == 0) {
       
-      roles.add( createRoleUser() );
+      roles.add(createRoleUser());
     }
     return roles;
   }
   
   private Role createRoleUser() {
     Role rol = new Role();
-        rol.setId(2);
-        rol.setRoleName("ROLE_STANDARD");
-        rol.setDescription("USER");
+    rol.setId(2);
+    rol.setRoleName("ROLE_STANDARD");
+    rol.setDescription("USER");
     return rol;
   }
   
@@ -173,7 +170,7 @@ public class User extends EntityAuditory implements Serializable {
   }
   
   public boolean isLocked() {
-    return locked == null ? false : locked;
+    return locked != null && locked;
   }
   
   public void setLocked(boolean locked) {
@@ -181,7 +178,7 @@ public class User extends EntityAuditory implements Serializable {
   }
   
   public boolean isExpired() {
-    return expired == null ? false : expired;
+    return expired != null && expired;
   }
   
   public void setExpired(boolean expired) {
