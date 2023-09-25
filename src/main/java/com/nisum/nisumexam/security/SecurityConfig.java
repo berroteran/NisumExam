@@ -49,7 +49,8 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
     
     http.authorizeRequests(
-        authorize -> authorize.requestMatchers("/").permitAll().requestMatchers("/swagger-resources/**'", "/swagger-ui/**", "/api/api-docs**", "/bus/v3/api-docs/**", "/v3/api-docs/**").permitAll()
+        authorize -> authorize.requestMatchers("/").permitAll()
+            .requestMatchers("/swagger-resources/**'", "/swagger-ui/**", "/api/api-docs**", "/bus/v3/api-docs/**", "/v3/api-docs/**").permitAll()
             
             .requestMatchers("/h2-console/**").permitAll()
             
