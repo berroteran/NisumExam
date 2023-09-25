@@ -50,7 +50,7 @@ public class SesionController {
   @Operation(summary = "Inicia Sesion", description = "Endpoint para iniciar sesion.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Sesion iniciada satisfactoriamente.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class)) }),
-      @ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content),
+      @ApiResponse(responseCode = "403", description = "Permisos no otorgados o usuario expirado.", content = @Content),
       @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
   })
   public ResponseEntity<?> signin(@RequestBody @Parameter(description = "Login, email y clave", required = true, content = {@Content(schema = @Schema(implementation = LoginDTO.class))}) @Valid LoginDTO login) {
