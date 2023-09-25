@@ -20,7 +20,7 @@ public record InfoErrorMessageResponse(Exception exception) {
       String msg       = e.getMessage();
       int    errorCode = ((SQLException) e).getErrorCode();
       if (errorCode == 23505 && msg.indexOf("Unique index or primary key violation") >= 0) {
-        return "This email address already belongs to a registered User";
+        return "El correo ya registrado";
       } else {
         return String.format("Error Code: %s | Cause: %s", errorCode, msg);
       }
