@@ -14,12 +14,15 @@ Aplicación demo para registro de usuarios.
 ### Documentacion automatica con  Swagger
 http://localhost:8080/api/v1/swagger-ui/index.html#/
 
+
 ### Consola de Base de datos/Persistence H2
 
 http://localhost:8080/api/v1/h2-console/login.jsp
 
-URL JDBC: jdbc:h2:mem:test;
-clave: password
+
+` URL JDBC: jdbc:h2:mem:test;
+
+` clave: password
 
 ### Datos de Prueba:
 user: juan@rodriguez.org
@@ -51,7 +54,11 @@ Desarrolle una aplicación que exponga una API RESTful de creación de usuarios.
 - ● Pruebas de unidad
 
 ## Gradle Ejecución
-gradle bootRun
+` gradle bootRun
+
+## Docker Ejecución
+
+` ./docker run -p 8080:8080 my-spring-boot-app `
 
 
 ## Dashboard de las pruebas.
