@@ -40,7 +40,10 @@ dependencies {
 
 	runtimeOnly("com.h2database:h2")
 
-	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+	//annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+	//documentacion
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
