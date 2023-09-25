@@ -43,7 +43,7 @@ public class User extends EntityAuditory implements Serializable {
   
   private LocalDateTime lastLoginDate  = LocalDateTime.now();
   private LocalDateTime lastPassChange = LocalDateTime.now();
-  private Boolean active = true;
+  private Boolean       active         = true;
   
   @Column(length = 400)
   private String token;

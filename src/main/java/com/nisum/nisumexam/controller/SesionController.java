@@ -29,7 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/Auth")
-@Tag(name = "Authentication service", description = "Operaciones de sesion." )
+@Tag(name = "Authentication service", description = "Operaciones de sesion.")
 public class SesionController {
   
   final private static Logger         LOG = LoggerFactory.getLogger(SesionController.class);
@@ -48,12 +48,12 @@ public class SesionController {
   @PostMapping(path = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @Operation(summary = "Inicia Sesion", description = "Endpoint para iniciar sesion.")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Sesion iniciada satisfactoriamente.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class)) }),
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Sesion iniciada satisfactoriamente.", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))}),
       @ApiResponse(responseCode = "403", description = "Permisos no otorgados o usuario expirado.", content = @Content),
-      @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
-  })
-  public ResponseEntity<?> signin(@RequestBody @Parameter(description = "Login, email y clave", required = true, content = {@Content(schema = @Schema(implementation = LoginDTO.class))}) @Valid LoginDTO login) {
+      @ApiResponse(responseCode = "404", description = "User not found", content = @Content)})
+  public ResponseEntity<?> signin(
+      @RequestBody @Parameter(description = "Login, email y clave", required = true, content = {@Content(schema = @Schema(implementation = LoginDTO.class))}) @Valid LoginDTO login) {
     LOG.info("JSON: {}", StringUtils.entityToString(login));
     UserSesionDTO user     = this.sesionService.signin(login);
     var           header   = new HttpHeaders();

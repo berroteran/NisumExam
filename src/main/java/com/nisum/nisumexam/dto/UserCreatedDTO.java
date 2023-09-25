@@ -8,15 +8,15 @@ import java.util.UUID;
 
 public class UserCreatedDTO {
   
-  private UUID          id;
+  private UUID id;
   
-  @JsonFormat(pattern="yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDateTime created;
   
-  @JsonFormat(pattern="yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDateTime modified;
   
-  @JsonFormat(pattern="yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDateTime lastLogin;
   private String        token;
   private boolean       active;

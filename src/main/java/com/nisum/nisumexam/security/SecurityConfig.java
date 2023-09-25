@@ -50,9 +50,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
     //setup for h2 console
-    http.headers(headers ->
-                     headers.frameOptions(frame -> frame.sameOrigin())
-                );
+    http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
     //General
     http.authorizeRequests(
         authorize -> authorize.requestMatchers("/").permitAll()
@@ -67,8 +65,8 @@ public class SecurityConfig {
             
             .anyRequest().authenticated())
         .csrf(AbstractHttpConfigurer::disable)
-        //.csrf(csrf -> csrf.ignoringRequestMatchers( PathRequest.toH2Console()))
-        .cors(withDefaults()).sessionManagement( (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        
+        .cors(withDefaults()).sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     
     http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     

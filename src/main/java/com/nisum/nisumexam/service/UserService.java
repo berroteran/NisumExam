@@ -46,7 +46,7 @@ public class UserService {
   
   public UserCreatedDTO createUser(UserRequestDTO newuser) {
     validUser(newuser);
-    if ( newuser.getPhones().isEmpty()) {
+    if (newuser.getPhones().isEmpty()) {
       throw new BusinessException("A new user require at least one phone.");
     }
     newuser.setPassword(encodePass(newuser.getPassword()));

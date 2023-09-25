@@ -21,14 +21,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @EnableAutoConfiguration(exclude = SpringDocDataRestConfiguration.class)
-@ComponentScan(basePackages = {"com.nisum.nisumexam.controller"},
-    excludeFilters = {@ComponentScan.Filter(
-        type = FilterType.CUSTOM,
-        classes = {
-            SwaggerConfig.SpringDocDataRestFilter.class,
-            SwaggerConfig.SpringDocHateoasFilter.class
-        }
-    )})
+@ComponentScan(basePackages = {"com.nisum.nisumexam.controller"}, excludeFilters = {
+    @ComponentScan.Filter(type = FilterType.CUSTOM, classes = {SwaggerConfig.SpringDocDataRestFilter.class, SwaggerConfig.SpringDocHateoasFilter.class})})
 public class SwaggerConfig {
   
   @Bean
@@ -51,6 +45,7 @@ public class SwaggerConfig {
   }
   
   public static class SpringDocDataRestFilter extends ClassFilter {
+    
     @Override
     protected Class<?> getFilteredClass() {
       return SpringDocDataRestConfiguration.class;
@@ -58,6 +53,7 @@ public class SwaggerConfig {
   }
   
   public static class SpringDocHateoasFilter extends ClassFilter {
+    
     @Override
     protected Class<?> getFilteredClass() {
       return SpringDocHateoasConfiguration.class;
@@ -65,15 +61,14 @@ public class SwaggerConfig {
   }
   
   private static abstract class ClassFilter implements TypeFilter {
-    protected abstract Class<?> getFilteredClass();
     
     @Override
     public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
-      String className = metadataReader.getClassMetadata().getClassName();
+      String className          = metadataReader.getClassMetadata().getClassName();
       String enclosingClassName = metadataReader.getClassMetadata().getEnclosingClassName();
-      return
-          className.equals(getFilteredClass().getCanonicalName())
-              || (enclosingClassName!=null && enclosingClassName.equals(getFilteredClass().getCanonicalName()));
+      return className.equals(getFilteredClass().getCanonicalName()) || (enclosingClassName != null && enclosingClassName.equals(getFilteredClass().getCanonicalName()));
     }
+    
+    protected abstract Class<?> getFilteredClass();
   }
 }
