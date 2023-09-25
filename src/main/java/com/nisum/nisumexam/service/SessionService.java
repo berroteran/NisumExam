@@ -13,7 +13,6 @@ import com.nisum.nisumexam.support.utils.StringUtils;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,7 @@ public class SessionService {
     
     if (userFinded.isPresent()) {
       if (userFinded.get().isActive()) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.email(), login.password()));
+        //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.email(), login.password()));
         final UserDetails userDetails = userDetailSecurityService.loadUserByUsername(login.email());
         if (!userDetails.isEnabled()) {
           throw new BusinessException("User no activo.");
