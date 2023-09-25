@@ -71,4 +71,11 @@ https://api.postman.com/collections/25706750-188e9732-29b1-477a-b4fe-dff064afae0
 [--> Archivo local ](./nisum.postman_collection.json)
 
 ## Diagrama de secuencia
+#### 1. Iniciar Sesion
+![Diagrama_SesionController_signin.png](Diagrama_SesionController_signin.png)
 
+#### 2. Crear un usuario.
+![Diagama_UserController_createUser.png](Diagama_UserController_createUser.png)
+
+
+# EOF
