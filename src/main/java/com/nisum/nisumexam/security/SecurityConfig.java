@@ -49,12 +49,15 @@ public class SecurityConfig {
   
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
-    
+    //setup for h2 console
+    http.headers(headers ->
+                     headers.frameOptions(frame -> frame.sameOrigin())
+                );
+    //General
     http.authorizeRequests(
         authorize -> authorize.requestMatchers("/").permitAll()
             .requestMatchers("/swagger-resources/**'", "/swagger-ui/**", "/api/api-docs**", "/bus/v3/api-docs/**", "/v3/api-docs/**").permitAll()
             
-            .requestMatchers("/h2-console/**").permitAll()
             .requestMatchers(PathRequest.toH2Console() ).permitAll()
             
             .requestMatchers("/user/signup").permitAll()
@@ -63,6 +66,7 @@ public class SecurityConfig {
             
             .anyRequest().authenticated())
         .csrf(AbstractHttpConfigurer::disable)
+        .csrf(csrf -> csrf.ignoringRequestMatchers( PathRequest.toH2Console()))
         .cors(withDefaults()).sessionManagement( (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     
     http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

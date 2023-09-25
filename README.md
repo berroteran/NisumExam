@@ -16,7 +16,10 @@ http://localhost:8080/api/v1/swagger-ui/index.html#/
 
 ### Consola de Base de datos/Persistence H2
 
-http://localhost:8080/api/h2-console/login.jsp?jsessionid=cd7a629b5b9325e3e2e75efe9ef3d5f2
+http://localhost:8080/api/v1/h2-console/login.jsp
+
+URL JDBC: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+
 
 ### Datos de Prueba:
 user: juan@rodriguez.org
