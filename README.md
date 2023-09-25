@@ -56,11 +56,10 @@ Desarrolle una aplicación que exponga una API RESTful de creación de usuarios.
 
 
 ## Gradle Ejecución
-` gradle bootRun
+` gradle bootRun`
 
 ## Docker Ejecución
-
-` ./docker run -p 8080:8080 my-spring-boot-app `
+` ./docker run -p 8080:8080 my-spring-boot-app`
 
 
 ## Dashboard de las pruebas.
