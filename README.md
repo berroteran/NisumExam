@@ -23,6 +23,7 @@ URL JDBC: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
 
 ### Datos de Prueba:
 user: juan@rodriguez.org
+
 Patron:  el email debe terminar en CL segun instrucciones.
 
 
