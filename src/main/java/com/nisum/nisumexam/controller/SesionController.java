@@ -4,6 +4,8 @@ import com.nisum.nisumexam.dto.LoginDTO;
 import com.nisum.nisumexam.dto.UserSesionDTO;
 import com.nisum.nisumexam.service.SessionService;
 import com.nisum.nisumexam.support.utils.StringUtils;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/Auth")
+@Tag(name = "Authentication service", description = "Operaciones de sesion.")
 public class SesionController {
   
   final private static Logger         LOG = LoggerFactory.getLogger(SesionController.class);
@@ -54,6 +57,7 @@ public class SesionController {
   }
   
   @GetMapping("/test")
+  @Parameter
   public ResponseEntity<?> test() {
     return ResponseEntity.ok("It's work!");
   }
