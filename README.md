@@ -63,10 +63,12 @@ Desarrolle una aplicación que exponga una API RESTful de creación de usuarios.
 
 
 ## Dashboard de las pruebas.
-[Dasboard, si Gradle run previamente.](file:///./build/reports/tests/test/index.html)
+[Dasboard local. (si Gradle run previamente.)](file:///./build/reports/tests/test/index.html)
 
 ## Postman JSON
 https://api.postman.com/collections/25706750-188e9732-29b1-477a-b4fe-dff064afae02?access_key=PMAT-01H9R6M8A03ZZDKPT9EH4J4WET
+
+[--> Archivo local ](./nisum.postman_collection.json)
 
 ## Diagrama de secuencia
 
