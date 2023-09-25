@@ -50,8 +50,8 @@ Desarrolle una aplicación que exponga una API RESTful de creación de usuarios.
 
 
 ## Opcional
-- ● JWT cómo token
-- ● Pruebas de unidad
+- JWT cómo token
+- Pruebas de unidad
 
 ## Gradle Ejecución
 ` gradle bootRun
