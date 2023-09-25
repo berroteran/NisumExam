@@ -107,7 +107,7 @@ public class User extends EntityAuditory implements Serializable {
   }
   
   public LocalDateTime getLastLoginDate() {
-    return lastLoginDate;
+    return lastLoginDate == null ? this.getCreationDate() : lastLoginDate;
   }
   
   public void setLastLoginDate(final LocalDateTime lastLoginDate) {

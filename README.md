@@ -18,13 +18,13 @@ http://localhost:8080/api/v1/swagger-ui/index.html#/
 
 http://localhost:8080/api/v1/h2-console/login.jsp
 
-URL JDBC: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
-
+URL JDBC: jdbc:h2:mem:test;
+clave: password
 
 ### Datos de Prueba:
 user: juan@rodriguez.org
 
-Patron:  el email debe terminar en CL segun instrucciones.
+Patron de correo:  el email debe terminar en CL segun instrucciones.
 
 
 ## Historia de usuario
@@ -58,7 +58,7 @@ gradle bootRun
 [Dasboard, si Gradle run previamente.](file:///./build/reports/tests/test/index.html)
 
 ## Postman JSON
-
+https://api.postman.com/collections/25706750-188e9732-29b1-477a-b4fe-dff064afae02?access_key=PMAT-01H9R6M8A03ZZDKPT9EH4J4WET
 
 ## Diagrama de secuencia
 

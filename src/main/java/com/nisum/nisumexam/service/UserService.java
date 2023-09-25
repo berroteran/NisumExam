@@ -46,8 +46,8 @@ public class UserService {
   
   public UserCreatedDTO createUser(UserRequestDTO newuser) {
     validUser(newuser);
-    if (newuser.getPhones().isEmpty()) {
-      throw new BusinessException("A new user required at least one phone.");
+    if ( newuser.getPhones().isEmpty()) {
+      throw new BusinessException("A new user require at least one phone.");
     }
     newuser.setPassword(encodePass(newuser.getPassword()));
     return UserCreatedDTO.parse(userRepository.save(newuser.toEntity()));
@@ -65,8 +65,6 @@ public class UserService {
     if (!isValidEmail(user.getEmail())) {
       throw new BusinessException("The email is not invalid format");
     }
-    
-    //if (existEmail(user.getEmail()))  throw new Exception(("The email already exist");
   }
   
   private String encodePass(String password) {

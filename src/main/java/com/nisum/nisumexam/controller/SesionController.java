@@ -1,10 +1,16 @@
 package com.nisum.nisumexam.controller;
 
 import com.nisum.nisumexam.dto.LoginDTO;
+import com.nisum.nisumexam.dto.UserResponseDTO;
 import com.nisum.nisumexam.dto.UserSesionDTO;
 import com.nisum.nisumexam.service.SessionService;
 import com.nisum.nisumexam.support.utils.StringUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -23,7 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/Auth")
-@Tag(name = "Authentication service", description = "Operaciones de sesion.")
+@Tag(name = "Authentication service", description = "Operaciones de sesion." )
 public class SesionController {
   
   final private static Logger         LOG = LoggerFactory.getLogger(SesionController.class);
@@ -41,7 +47,13 @@ public class SesionController {
    */
   @PostMapping(path = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<?> signin(@RequestBody @Valid LoginDTO login) {
+  @Operation(summary = "Inicia Sesion", description = "Endpoint para iniciar sesion.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Sesion iniciada satisfactoriamente.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class)) }),
+      @ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content),
+      @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+  })
+  public ResponseEntity<?> signin(@RequestBody @Parameter(description = "Login, email y clave", required = true, content = {@Content(schema = @Schema(implementation = LoginDTO.class))}) @Valid LoginDTO login) {
     LOG.info("JSON: {}", StringUtils.entityToString(login));
     UserSesionDTO user     = this.sesionService.signin(login);
     var           header   = new HttpHeaders();
