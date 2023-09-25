@@ -1,4 +1,4 @@
-package com.nisum.exam.nisum23;
+package com.nisum.nisumexam;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Nisum23ApplicationTests {
+class NisumExamApplicationTests {
   
   @Value("${security.jwt.token.secret-key}")
   private String JWT_SECRET_KEY;
